@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { MovieCard, MovieDetailsModal, SearchBar } from '@/components';
 import { type Movie, type MovieShort } from '@/types';
 import { getMovieById, searchMovies } from '@/utils';
+import { Helmet } from 'react-helmet';
 
 export default function SearchPageRender() {
 	const [movies, setMovies] = useState<MovieShort[]>([]);
@@ -31,6 +32,9 @@ export default function SearchPageRender() {
 
 	return (
 		<div className="container max-w-screen-xl mx-auto pt-24 px-8 min-h-screen">
+			<Helmet>
+				<title>Catalog</title>
+			</Helmet>
 			<SearchBar onSearch={onSearch} />
 			{result && movies.length > 0 ? (
 				<>

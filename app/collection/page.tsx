@@ -2,9 +2,9 @@
 
 import { SavedMoviesTable } from '@/components';
 import React, { useEffect, useState } from 'react';
-import { getMovieById } from '@/utils/api';
 import { type Movie } from '@/types';
-import { getSavedMovies, removeMovieReview } from '@/utils';
+import { getSavedMovies, removeMovieReview, getMovieById } from '@/utils';
+import { Helmet } from 'react-helmet';
 
 export default function Collection() {
 	const [userMoviesData, setUserMoviesData] = useState<Movie[]>([]);
@@ -37,6 +37,7 @@ export default function Collection() {
 
 	return (
 		<div className="flex flex-col items-center min-h-screen">
+			<Helmet>Collection</Helmet>
 			<div className="text-xl font-bold mb-10 mt-24">My movies</div>
 			<SavedMoviesTable
 				data={userMoviesData}

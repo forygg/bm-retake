@@ -4,18 +4,15 @@ import React, { useState, useEffect } from 'react';
 import type { Movie, SavedMovie } from '@/types';
 import Image from 'next/image';
 import { StarRating } from '@/components';
-import {
-	saveMovieReview,
-	getMovieReviewById,
-	getMovieById,
-	getSavedMovies,
-} from '@/utils';
+import { saveMovieReview, getMovieReviewById, getSavedMovies } from '@/utils';
+import { Helmet } from 'react-helmet';
 
 interface MoviePageRenderProps {
 	movie: Movie;
 }
 
 const MoviePageRender: React.FC<MoviePageRenderProps> = ({ movie }) => {
+	const pageTitle = movie.title;
 	const [review, setReview] = useState('');
 	const [rating, setRating] = useState(0);
 	const [isSaved, setIsSaved] = useState(false);
@@ -43,7 +40,6 @@ const MoviePageRender: React.FC<MoviePageRenderProps> = ({ movie }) => {
 		const existingReview = getMovieReviewById(movie.id);
 
 		if (existingReview) {
-			// Update the existing review
 			existingReview.review = review;
 			existingReview.rating = rating;
 
@@ -75,8 +71,11 @@ const MoviePageRender: React.FC<MoviePageRenderProps> = ({ movie }) => {
 	};
 
 	return (
-		<div className="mx-auto p-8 shadow-lg bg-white py-20">
-			<div className="grid grid-cols-3 gap-8">
+		<div className="mx-auto p-8 bg-white py-20 flex flex-col justify-center max-w-5xl">
+			<Helmet>
+				<title>{pageTitle}</title>
+			</Helmet>
+			<div className="grid grid-cols-3 gap-8 center place-content-center">
 				<div className="col-span-3 sm:col-span-1 md:col-span-1 lg:col-span-1">
 					<div className="aspect-w-2 aspect-h-3 mx-auto">
 						<Image
@@ -88,7 +87,7 @@ const MoviePageRender: React.FC<MoviePageRenderProps> = ({ movie }) => {
 							alt="movie"
 							width="300"
 							height="450"
-							className="object-cover w-full h-full"
+							className="object-cover rounded-lg"
 						/>
 					</div>
 				</div>
