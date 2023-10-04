@@ -2,7 +2,7 @@
 const nextConfig = {};
 
 module.exports = {
-  images: {
-    domains: ["m.media-amazon.com"],
-  },
+	images: {
+		domains: ['m.media-amazon.com'],
+	},
 };

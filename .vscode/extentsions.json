@@ -1,12 +1,12 @@
 {
-  "recommendations": [
-    {
-      "id": "esbenp.prettier-vscode",
-      "version": "3.0.3"
-    },
-    {
-      "id": "dbaeumer.vscode-eslint",
-      "version": "8.50.0"
-    }
-  ]
+	"recommendations": [
+		{
+			"id": "esbenp.prettier-vscode",
+			"version": "3.0.3"
+		},
+		{
+			"id": "dbaeumer.vscode-eslint",
+			"version": "8.50.0"
+		}
+	]
 }
