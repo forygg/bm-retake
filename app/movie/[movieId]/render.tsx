@@ -18,6 +18,7 @@ const MoviePageRender: React.FC<MoviePageRenderProps> = ({ movie }) => {
 	const [isSaved, setIsSaved] = useState(false);
 	const [isEditing, setIsEditing] = useState(false);
 	const [isRatingEditable, setIsRatingEditable] = useState(true);
+	const [errorMessage, setErrorMessage] = useState('');
 
 	useEffect(() => {
 		const savedMovie = getMovieReviewById(movie.id);
@@ -33,10 +34,28 @@ const MoviePageRender: React.FC<MoviePageRenderProps> = ({ movie }) => {
 	const handleReviewChange = (e: {
 		target: { value: React.SetStateAction<string> };
 	}) => {
+		if (
+			e.target.value.length <= 64 &&
+			!/[!@#$%^&*(),.?":{}|<>]/.test(e.target.value as string)
+		) {
+			setErrorMessage('');
+		}
+
 		setReview(e.target.value);
 	};
 
 	const handleSaveReview = () => {
+		if (review.length > 64) {
+			setErrorMessage('Review cannot be longer than 64 symbols.');
+			return;
+		}
+
+		const inappropriateSymbolsRegex = /[!@#$%^&*(),.?":{}|<>]/;
+		if (inappropriateSymbolsRegex.test(review)) {
+			setErrorMessage('Review contains inappropriate symbols.');
+			return;
+		}
+
 		const existingReview = getMovieReviewById(movie.id);
 
 		if (existingReview) {
@@ -148,6 +167,7 @@ const MoviePageRender: React.FC<MoviePageRenderProps> = ({ movie }) => {
 						placeholder="Write your review here..."
 						disabled={!isEditing && isSaved}
 					/>
+					{errorMessage && <p className="text-red-500">{errorMessage}</p>}
 					<div className="flex gap-4 mt-4">
 						{isEditing || !isSaved ? (
 							<>
